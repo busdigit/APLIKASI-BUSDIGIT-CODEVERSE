@@ -6283,7 +6283,112 @@
       font-weight: 700;
     }
 
-    /* Bottom Mini Bar */
+    /* Sidebar Dynamic User Footer & Profile Bar */
+    .sidebar-user-footer {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 14px;
+      margin-top: auto;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(12px);
+      box-sizing: border-box;
+      flex-shrink: 0;
+    }
+
+    [data-theme="light"] .sidebar-user-footer {
+      background: #f1f5f9;
+      border-color: rgba(0, 0, 0, 0.08);
+    }
+
+    .sidebar-user-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #00FFA3, #06b6d4);
+      color: #060b14;
+      font-weight: 800;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      border: 1.5px solid rgba(255, 255, 255, 0.25);
+      overflow: hidden;
+    }
+
+    .sidebar-user-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .sidebar-user-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .sidebar-user-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-main);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      line-height: 1.3;
+    }
+
+    .sidebar-user-role {
+      display: inline-block;
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      color: #00FFA3;
+      background: rgba(0, 255, 163, 0.12);
+      border: 1px solid rgba(0, 255, 163, 0.3);
+      padding: 1px 6px;
+      border-radius: 4px;
+      margin-top: 2px;
+      text-transform: uppercase;
+    }
+
+    .btn-sidebar-logout {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #f87171;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .btn-sidebar-logout:hover {
+      background: #ef4444;
+      color: #ffffff;
+      transform: scale(1.06);
+    }
+
+    .app-sidebar.sidebar-collapsed .sidebar-user-footer {
+      justify-content: center;
+      padding: 10px 0;
+    }
+
+    .app-sidebar.sidebar-collapsed .sidebar-user-info {
+      display: none;
+    }
+
+    .app-sidebar.sidebar-collapsed #snav-logout-btn span:last-child {
+      display: none;
+    }
+
+    /* Bottom Mini Bar Fallback */
     .sidebar-bottom-bar {
       display: flex;
       align-items: center;
@@ -9632,46 +9737,43 @@
       box-shadow: 0 8px 22px rgba(236, 72, 153, 0.55), 0 0 15px rgba(217, 70, 239, 0.4);
     }
 
-    /* Floating Tooltip (.dk__tip) */
+    /* Permanent Text Label Underneath Icon (.dk__tip) */
     .dk__tip {
-      position: absolute;
-      bottom: calc(100% + 12px);
-      left: 50%;
-      transform: translateX(-50%) translateY(5px);
-      background: rgba(15, 23, 42, 0.92);
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      color: #ffffff;
-      font-size: 11px;
+      position: static;
+      transform: none;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      color: #94a3b8;
+      font-size: 10.5px;
       font-weight: 700;
-      letter-spacing: 0.3px;
-      padding: 4px 10px;
-      border-radius: 8px;
-      pointer-events: none;
-      opacity: 0;
-      visibility: hidden;
+      letter-spacing: 0.2px;
+      padding: 0;
+      margin-top: 3px;
+      line-height: 1.2;
+      opacity: 1;
+      visibility: visible;
       white-space: nowrap;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
-      transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s ease;
-      z-index: 10;
+      text-align: center;
+      transition: color 0.2s ease, text-shadow 0.2s ease;
+      z-index: 1;
     }
 
     .dk__tip::after {
-      content: '';
-      position: absolute;
-      top: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-      border-width: 4px;
-      border-style: solid;
-      border-color: rgba(15, 23, 42, 0.92) transparent transparent transparent;
+      display: none !important;
     }
 
     .dk__item:hover .dk__tip {
-      opacity: 1;
-      visibility: visible;
-      transform: translateX(-50%) translateY(0);
+      color: #f1f5f9;
+      transform: none;
+    }
+
+    .dk__item.active .dk__tip {
+      color: #ffffff;
+      font-weight: 800;
+      text-shadow: 0 0 10px rgba(0, 255, 163, 0.6);
     }
 
     /* Active Running Dot Indicator (.dk__dot) */
@@ -9733,7 +9835,15 @@
         height: 20px;
       }
       .dk__tip {
-        display: none;
+        display: block !important;
+        font-size: 9px !important;
+        letter-spacing: -0.2px;
+        margin-top: 2px;
+      }
+      .dk__dot {
+        width: 3.5px;
+        height: 3.5px;
+        margin-top: 2px;
       }
     }
 
@@ -9889,19 +9999,23 @@
             <button type="button" class="sidebar-tree-subitem" id="snav-bantuan-cs" onclick="handleSubMenuClick('bantuan-cs')">
               <span>Bantuan CS</span>
             </button>
+            <button type="button" class="sidebar-tree-subitem danger-item" id="snav-logout-btn" onclick="logoutToGuest()" style="color: #f87171 !important; margin-top: 6px; border-top: 1px dashed rgba(239, 68, 68, 0.25); padding-top: 8px;">
+              <span>🚪 Keluar / Logout</span>
+            </button>
           </div>
         </div>
       </div>
 
-      <!-- 4. Bottom Mini Bar -->
-      <div class="sidebar-bottom-bar">
-        <button type="button" class="mini-bar-btn" title="LMS Belajar" onclick="switchTab('lms')">🎓</button>
-        <button type="button" class="mini-bar-btn" title="Store &amp; Aset"
-          onclick="openProLockModal('', 'Katalog Store')">🛍️</button>
-        <button type="button" class="mini-bar-btn" title="Project Lab" onclick="switchTab('projectlab')">💻</button>
-        <button type="button" class="mini-bar-btn" title="Pengaturan" onclick="openGoogleLoginModal()">⚙️</button>
-        <button type="button" class="mini-bar-btn" title="Menu Profil"
-          onclick="toggleProfileDropdown(event)">•••</button>
+      <!-- 4. Dynamic User Profile & Logout Footer -->
+      <div class="sidebar-user-footer" id="sidebarUserFooter">
+        <div class="sidebar-user-avatar" id="sidebarUserAvatar">BD</div>
+        <div class="sidebar-user-info">
+          <div class="sidebar-user-name" id="sidebarUserName">Member Busdigit</div>
+          <div class="sidebar-user-role" id="sidebarUserRoleBadge">GUEST</div>
+        </div>
+        <button type="button" class="btn-sidebar-logout" onclick="logoutToGuest()" title="Keluar / Logout Akun">
+          <span>🚪</span>
+        </button>
       </div>
     </aside>
 
@@ -15431,6 +15545,65 @@
       if (btnCreateLabel) {
         btnCreateLabel.textContent = (role === 'ADMIN') ? 'Tambah Aset' : 'Buat';
       }
+
+      // Dynamic User Profile Card in Sidebar Footer
+      const nameEl = document.getElementById('sidebarUserName');
+      const roleBadgeEl = document.getElementById('sidebarUserRoleBadge');
+      const avatarEl = document.getElementById('sidebarUserAvatar');
+      const curAccount = appState.currentAccount || (appState.userProfile && appState.userProfile.name ? appState.userProfile : null);
+
+      if (role === 'ADMIN') {
+        if (nameEl) nameEl.textContent = 'Super Administrator';
+        if (roleBadgeEl) {
+          roleBadgeEl.textContent = 'SUPER ADMIN';
+          roleBadgeEl.style.background = 'rgba(239, 68, 68, 0.2)';
+          roleBadgeEl.style.color = '#fca5a5';
+          roleBadgeEl.style.borderColor = 'rgba(239, 68, 68, 0.35)';
+        }
+        if (avatarEl) avatarEl.textContent = 'SA';
+      } else if (role === 'MEMBER_PRO' || appState.isProMember) {
+        const uName = (curAccount && (curAccount.name || curAccount.displayName)) || 'Member Pro';
+        if (nameEl) nameEl.textContent = uName;
+        if (roleBadgeEl) {
+          roleBadgeEl.textContent = 'MEMBER PRO';
+          roleBadgeEl.style.background = 'rgba(234, 179, 8, 0.2)';
+          roleBadgeEl.style.color = '#fde047';
+          roleBadgeEl.style.borderColor = 'rgba(234, 179, 8, 0.35)';
+        }
+        if (avatarEl) {
+          if (curAccount && curAccount.picture) {
+            avatarEl.innerHTML = '<img src="' + curAccount.picture + '" alt="Avatar" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">';
+          } else {
+            avatarEl.textContent = uName.slice(0, 2).toUpperCase();
+          }
+        }
+      } else if (role === 'MEMBER_REGULAR') {
+        const uName = (curAccount && (curAccount.name || curAccount.displayName)) || 'Member Busdigit';
+        if (nameEl) nameEl.textContent = uName;
+        if (roleBadgeEl) {
+          roleBadgeEl.textContent = 'REGULER';
+          roleBadgeEl.style.background = 'rgba(59, 130, 246, 0.2)';
+          roleBadgeEl.style.color = '#93c5fd';
+          roleBadgeEl.style.borderColor = 'rgba(59, 130, 246, 0.35)';
+        }
+        if (avatarEl) {
+          if (curAccount && curAccount.picture) {
+            avatarEl.innerHTML = '<img src="' + curAccount.picture + '" alt="Avatar" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">';
+          } else {
+            avatarEl.textContent = uName.slice(0, 2).toUpperCase();
+          }
+        }
+      } else {
+        // GUEST
+        if (nameEl) nameEl.textContent = 'Tamu (Guest)';
+        if (roleBadgeEl) {
+          roleBadgeEl.textContent = 'GUEST';
+          roleBadgeEl.style.background = 'rgba(148, 163, 184, 0.15)';
+          roleBadgeEl.style.color = '#94a3b8';
+          roleBadgeEl.style.borderColor = 'rgba(148, 163, 184, 0.3)';
+        }
+        if (avatarEl) avatarEl.textContent = 'BD';
+      }
     }
 
     function openNewProjectOrVibeModal() {
@@ -15739,7 +15912,10 @@
       appState.isAdminAuthenticated = false;
       closeGoogleLoginModal();
       applyRole('GUEST', false);
-      showToast('👋 Anda masuk dalam Mode Tamu. Vibe AI & AI Agents terkunci.');
+      if (typeof toggleSidebar === 'function' && window.innerWidth <= 860) {
+        toggleSidebar(false);
+      }
+      showToast('👋 Anda keluar ke Mode Tamu.');
     }
 
     // Mentor Grading Action: Saves Score directly to Google Sheets via backend
