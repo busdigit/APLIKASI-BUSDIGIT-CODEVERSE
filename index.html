@@ -3924,158 +3924,392 @@
       padding: 6px;
     }
 
-    /* Google Auth Modal Specifics */
+    /* ==========================================================================
+       MODERN ELEGAN GOOGLE AUTH MODAL (GLASSMORPHIC DARK DESIGN)
+       ========================================================================== */
     .google-modal-box {
-      background: #0f172a;
-      border: 1px solid #1e293b;
-      border-radius: 20px;
-      max-width: 460px;
-      max-height: 90vh;
+      background: rgba(15, 23, 42, 0.88);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(28px) saturate(190%);
+      -webkit-backdrop-filter: blur(28px) saturate(190%);
+      border-radius: 24px;
+      max-width: 480px;
+      max-height: 92vh;
       overflow-y: auto;
       width: 92%;
-      padding: 28px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.08);
+      padding: 26px 24px 22px 24px;
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.75), 0 0 40px rgba(66, 133, 244, 0.12);
       position: relative;
+      animation: authModalPopIn 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+      box-sizing: border-box;
+    }
+
+    @keyframes authModalPopIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.94) translateY(12px);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    .google-modal-box::before {
+      content: '';
+      position: absolute;
+      top: -50px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 260px;
+      height: 110px;
+      background: radial-gradient(circle, rgba(66, 133, 244, 0.25) 0%, rgba(168, 85, 247, 0.15) 50%, transparent 70%);
+      filter: blur(24px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .google-modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #94a3b8;
+      font-size: 13px;
+      font-weight: 700;
+      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 10;
+      user-select: none;
+    }
+
+    .google-modal-close:hover {
+      background: rgba(239, 68, 68, 0.18);
+      border-color: rgba(239, 68, 68, 0.45);
+      color: #f87171;
+      transform: rotate(90deg) scale(1.08);
     }
 
     .google-auth-header {
       text-align: center;
-      margin-bottom: 22px;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
     }
 
     .google-g-logo {
-      width: 44px;
-      height: 44px;
+      width: 48px;
+      height: 48px;
       margin: 0 auto 12px auto;
       background: #ffffff;
-      border-radius: 50%;
+      border-radius: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35), 0 0 16px rgba(66, 133, 244, 0.25);
+      transition: transform 0.24s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
-    .google-account-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-bottom: 20px;
+    .google-g-logo:hover {
+      transform: scale(1.08) rotate(3deg);
     }
 
-    .google-account-btn {
+    /* Interactive Segmented 3-Role Cards */
+    .auth-role-section {
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .auth-section-title {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      color: #94a3b8;
+      text-transform: uppercase;
+      margin-bottom: 8px;
       display: flex;
       align-items: center;
-      gap: 12px;
-      padding: 12px 14px;
-      background: var(--bg-surface);
-      border: 1px solid var(--border-subtle);
-      border-radius: 12px;
-      color: var(--text-main);
+      gap: 6px;
+    }
+
+    .auth-role-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .auth-role-card {
+      background: rgba(30, 41, 59, 0.6);
+      border: 1.5px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 10px 6px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
       cursor: pointer;
-      transition: all 0.2s ease;
-      text-align: left;
-      width: 100%;
+      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+      user-select: none;
+      position: relative;
     }
 
-    .google-account-btn:hover {
-      background: rgba(190, 242, 100, 0.1);
-      border-color: var(--accent-lime);
-      transform: translateX(4px);
+    .auth-role-card:hover {
+      background: rgba(30, 41, 59, 0.9);
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
     }
 
-    .google-account-btn .acc-avatar {
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      object-fit: cover;
+    .auth-role-card.active {
+      transform: translateY(-2px);
     }
 
-    .google-account-btn .acc-details {
-      flex: 1;
-      min-width: 0;
+    .auth-role-card.role-regular.active {
+      border-color: #38bdf8;
+      background: rgba(14, 165, 233, 0.14);
+      box-shadow: 0 4px 16px rgba(14, 165, 233, 0.25);
     }
 
-    .google-account-btn .acc-name {
-      font-weight: 700;
-      font-size: 13.5px;
-      color: var(--text-main);
+    .auth-role-card.role-pro.active {
+      border-color: #fbbf24;
+      background: rgba(245, 158, 11, 0.14);
+      box-shadow: 0 4px 16px rgba(245, 158, 11, 0.25);
     }
 
-    .google-account-btn .acc-email {
-      font-size: 11.5px;
-      color: var(--text-muted);
-      overflow: hidden;
-      text-overflow: ellipsis;
+    .auth-role-card.role-admin.active {
+      border-color: #f43f5e;
+      background: rgba(244, 63, 94, 0.14);
+      box-shadow: 0 4px 16px rgba(244, 63, 94, 0.25);
+    }
+
+    .auth-role-icon {
+      font-size: 20px;
+      line-height: 1;
+      margin-bottom: 5px;
+    }
+
+    .auth-role-title {
+      font-size: 11px;
+      font-weight: 800;
+      color: #f1f5f9;
+      margin-bottom: 2px;
       white-space: nowrap;
     }
 
-    .google-account-btn .acc-role-tag {
-      font-size: 10px;
-      font-weight: 800;
-      padding: 2px 8px;
-      border-radius: 9999px;
-      text-transform: uppercase;
-      flex-shrink: 0;
+    .auth-role-desc {
+      font-size: 9px;
+      font-weight: 500;
+      color: #94a3b8;
+      line-height: 1.2;
     }
 
-    /* Custom Google Email / Link Login Form */
-    .custom-login-box {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-subtle);
-      border-radius: 12px;
-      padding: 12px 14px;
+    .auth-role-card.active .auth-role-title {
+      color: #ffffff;
+    }
+
+    .auth-role-card.role-regular.active .auth-role-title {
+      color: #38bdf8;
+    }
+
+    .auth-role-card.role-pro.active .auth-role-title {
+      color: #fde047;
+    }
+
+    .auth-role-card.role-admin.active .auth-role-title {
+      color: #fda4af;
+    }
+
+    /* Modern Input Groups with Leading Icons */
+    .auth-fields-card {
+      background: rgba(30, 41, 59, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 16px;
       margin-bottom: 16px;
-      transition: all 0.2s ease;
+      position: relative;
+      z-index: 1;
     }
 
-    .custom-login-toggle-btn {
+    .auth-field-group {
+      margin-bottom: 12px;
+    }
+
+    .auth-field-group:last-child {
+      margin-bottom: 0;
+    }
+
+    .auth-field-label {
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+      color: #cbd5e1;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .auth-input-wrapper {
+      position: relative;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      width: 100%;
-      background: transparent;
-      border: none;
-      color: var(--text-main);
-      font-size: 12.5px;
-      font-weight: 700;
-      cursor: pointer;
-      padding: 2px 0;
-      transition: color 0.2s;
     }
 
-    .custom-login-toggle-btn:hover {
-      color: var(--accent-lime);
-    }
-
-    .custom-login-content {
-      display: none;
-      margin-top: 12px;
-      flex-direction: column;
-      gap: 9px;
-      border-top: 1px dashed var(--border-subtle);
-      padding-top: 10px;
-    }
-
-    .custom-login-content.active {
+    .auth-input-icon {
+      position: absolute;
+      left: 12px;
+      font-size: 14px;
+      color: #64748b;
+      pointer-events: none;
+      transition: color 0.2s ease;
       display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
+    .auth-modern-input,
     .custom-login-input {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: 8px;
-      padding: 9px 12px;
-      color: var(--text-main);
-      font-size: 12px;
+      background: rgba(15, 23, 42, 0.75);
+      border: 1.5px solid rgba(255, 255, 255, 0.1);
+      border-radius: 11px;
+      padding: 11px 14px 11px 36px;
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 500;
       outline: none;
       width: 100%;
       box-sizing: border-box;
-      transition: border-color 0.2s, box-shadow 0.2s;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
     }
 
+    .auth-modern-input:focus,
     .custom-login-input:focus {
-      border-color: var(--accent-lime);
-      box-shadow: 0 0 0 2px rgba(190, 242, 100, 0.2);
+      border-color: #38bdf8;
+      background: rgba(15, 23, 42, 0.95);
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.22);
+    }
+
+    .auth-input-wrapper:focus-within .auth-input-icon {
+      color: #38bdf8;
+    }
+
+    .auth-modern-input::placeholder,
+    .custom-login-input::placeholder {
+      color: #64748b;
+      font-size: 12px;
+    }
+
+    /* Conditional Feature Cards */
+    .auth-info-card {
+      border-radius: 12px;
+      padding: 11px 14px;
+      margin-top: 10px;
+      animation: authCardFadeIn 0.25s ease-out;
+    }
+
+    @keyframes authCardFadeIn {
+      0% {
+        opacity: 0;
+        transform: translateY(-4px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .auth-info-pro {
+      background: rgba(245, 158, 11, 0.08);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+    }
+
+    .auth-info-admin {
+      background: rgba(244, 63, 94, 0.08);
+      border: 1px solid rgba(244, 63, 94, 0.35);
+    }
+
+    /* Primary Action Button */
+    .auth-action-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 18px;
+      border-radius: 12px;
+      font-size: 13.5px;
+      font-weight: 800;
+      letter-spacing: 0.2px;
+      color: #ffffff;
+      background: linear-gradient(135deg, #2563eb 0%, #06b6d4 100%);
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.35);
+      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+      margin-top: 14px;
+      user-select: none;
+    }
+
+    .auth-action-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(37, 99, 235, 0.5);
+      filter: brightness(1.08);
+    }
+
+    .auth-action-btn:active {
+      transform: translateY(0) scale(0.98);
+    }
+
+    /* Refined Footer */
+    .auth-modal-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+      position: relative;
+      z-index: 1;
+    }
+
+    .auth-security-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #64748b;
+    }
+
+    .auth-guest-btn {
+      background: rgba(244, 63, 94, 0.08);
+      border: 1px solid rgba(244, 63, 94, 0.25);
+      border-radius: 8px;
+      padding: 5px 11px;
+      color: #fb7185;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+
+    .auth-guest-btn:hover {
+      background: rgba(244, 63, 94, 0.2);
+      border-color: rgba(244, 63, 94, 0.45);
+      color: #fda4af;
+      transform: translateY(-1px);
+    }
+
+    /* Legacy compatibility helper classes */
+    .custom-login-box {
+      margin-bottom: 0;
     }
 
     /* Admin Data Table */
@@ -12398,7 +12632,7 @@
        ======================================================================== -->
   <div class="modal-backdrop" id="googleAuthModal">
     <div class="google-modal-box">
-      <div class="modal-close" id="googleAuthCloseBtn" onclick="closeGoogleLoginModal()">✕</div>
+      <div class="google-modal-close" id="googleAuthCloseBtn" onclick="closeGoogleLoginModal()" title="Tutup">✕</div>
       <div class="google-auth-header">
         <div class="google-g-logo">
           <svg width="24" height="24" viewBox="0 0 24 24">
@@ -12412,111 +12646,114 @@
               d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.36 0 3.27 2.64 1.26 6.58l4.02 3.15c.95-2.83 3.6-4.98 6.72-4.98z" />
           </svg>
         </div>
-        <h3 style="font-family: 'Outfit', sans-serif; font-size: 20px; color: var(--text-main); margin-bottom: 6px;">
-          Masuk dengan Akun Google
+        <h3 style="font-family: 'Outfit', sans-serif; font-size: 21px; font-weight: 800; color: #ffffff; margin-bottom: 6px; letter-spacing: -0.3px;">
+          Masuk ke CODEVERSE
         </h3>
-        <p style="font-size: 12.5px; color: var(--text-muted); margin: 0;">
-          Pilih profil atau akun Google Anda untuk mengakses workspace BUSDIGIT CODEVERSE
+        <p style="font-size: 12.5px; color: #94a3b8; margin: 0; line-height: 1.45;">
+          Pilih hak akses &amp; akun Google Anda untuk menjelajahi workspace
         </p>
       </div>
 
-      <!-- Masuk Akun Google & Pilihan 3 Panel Dashboard -->
-      <div class="custom-login-box" style="margin-bottom: 16px;">
-        <div
-          style="font-size: 13px; font-weight: 700; color: var(--text-main); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
-          <span style="font-size: 16px;">🔑</span> <span>Masuk Akun Google &amp; Pilih Panel:</span>
+      <!-- 1. Interactive 3-Role Segmented Cards -->
+      <div class="auth-role-section">
+        <div class="auth-section-title">
+          <span>👤</span> <span>PILIH HAK AKSES PANEL:</span>
         </div>
-        <div style="display: flex; flex-direction: column; gap: 10px;">
-          <div>
-            <label
-              style="font-size: 11px; font-weight: 700; color: var(--text-subtle); display: block; margin-bottom: 4px;">EMAIL
-              GOOGLE</label>
-            <input type="email" id="customGoogleEmail" class="custom-login-input"
-              placeholder="Email Google Anda (contoh: tomi.bustomi@gmail.com)">
+        <div class="auth-role-grid">
+          <div class="auth-role-card role-regular active" id="authRoleCard_REGULAR" onclick="selectAuthRoleCard('MEMBER_REGULAR')">
+            <div class="auth-role-icon">👨‍🎓</div>
+            <div class="auth-role-title">Reguler</div>
+            <div class="auth-role-desc">LMS &amp; POS</div>
           </div>
-          <div>
-            <label
-              style="font-size: 11px; font-weight: 700; color: var(--text-subtle); display: block; margin-bottom: 4px;">NAMA
-              LENGKAP / PANGGILAN (OPSIONAL)</label>
-            <input type="text" id="customGoogleName" class="custom-login-input"
-              placeholder="Nama Lengkap Anda (contoh: Rian Pratama)">
+          <div class="auth-role-card role-pro" id="authRoleCard_PRO" onclick="selectAuthRoleCard('MEMBER_PRO')">
+            <div class="auth-role-icon">⭐</div>
+            <div class="auth-role-title">Member PRO</div>
+            <div class="auth-role-desc">AI Studio &amp; Flow</div>
           </div>
-          <div>
-            <label
-              style="font-size: 11px; font-weight: 700; color: var(--text-subtle); display: block; margin-bottom: 4px;">PILIH
-              MODE PANEL MASUK</label>
-            <select id="customGoogleRole" class="custom-login-input" style="font-weight: 600; cursor: pointer;"
-              onchange="onLoginRoleSelectChange(this.value)">
-              <option value="MEMBER_REGULAR">👨‍🎓 Panel Member Biasa (Reguler)</option>
-              <option value="MEMBER_PRO">⭐ Panel Member PRO (Wajib Terdaftar Admin)</option>
-              <option value="ADMIN">🔒 Panel Admin (Terkunci / Butuh PIN)</option>
-            </select>
+          <div class="auth-role-card role-admin" id="authRoleCard_ADMIN" onclick="selectAuthRoleCard('ADMIN')">
+            <div class="auth-role-icon">🛡️</div>
+            <div class="auth-role-title">Super Admin</div>
+            <div class="auth-role-desc">Master Control</div>
           </div>
-
-          <!-- Info Lisensi Khusus Panel Member PRO (Muncul Saat Opsi MEMBER_PRO Dipilih) -->
-          <div id="proLoginHintGroup"
-            style="display: none; background: rgba(251, 191, 36, 0.08); border: 1px solid rgba(251, 191, 36, 0.35); border-radius: 8px; padding: 10px 12px; margin-top: -2px;">
-            <label
-              style="font-size: 11px; font-weight: 700; color: #fbbf24; display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
-              <span>⭐ VALIDASI LISENSI MEMBER PRO:</span>
-            </label>
-            <div style="font-size: 10.5px; color: var(--text-muted); line-height: 1.5;">
-              Vibe AI Studio dan AI Agents akan otomatis terbuka jika email Google Anda telah didaftarkan dan disetup
-              oleh Admin di database Google Sheet. Jika belum terdaftar, fitur AI akan terkunci.
-            </div>
-          </div>
-
-          <!-- Input PIN Khusus Panel Admin (Muncul Otomatis Saat Opsi ADMIN Dipilih) -->
-          <div id="adminLoginPinGroup"
-            style="display: none; background: rgba(244, 63, 94, 0.08); border: 1px solid rgba(244, 63, 94, 0.35); border-radius: 8px; padding: 10px 12px; margin-top: -2px;">
-            <label
-              style="font-size: 11px; font-weight: 700; color: #fb7185; display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
-              <span>🔒 PIN / PASSWORD MASTER SUPER ADMIN:</span>
-            </label>
-            <form onsubmit="event.preventDefault(); loginWithCustomGoogleAccount();" style="margin: 0; padding: 0;">
-              <input type="text" name="username" autocomplete="username" value="admin" style="display:none;" aria-hidden="true" tabindex="-1">
-              <div style="position: relative;">
-                <input type="password" id="customAdminPassword" name="customAdminPassword" class="custom-login-input"
-                  placeholder="Masukkan PIN Master Admin" autocomplete="current-password"
-                  style="background: var(--bg-main); border-color: rgba(244, 63, 94, 0.4); padding-right: 36px; font-weight: 700; font-family: 'JetBrains Mono', monospace; letter-spacing: 1.5px;"
-                  onkeydown="if(event.key==='Enter') loginWithCustomGoogleAccount()">
-                <button type="button" onclick="toggleAdminPassVisibility('customAdminPassword', this)"
-                  style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: transparent; border: none; color: var(--text-muted); cursor: pointer; font-size: 13px;">
-                  👁️
-                </button>
-              </div>
-            </form>
-            <div style="font-size: 10.5px; color: #fca5a5; margin-top: 5px;">
-              ⚠️ Panel Admin diproteksi khusus. Masukkan PIN Master untuk membuka hak kendali penuh.
-            </div>
-          </div>
-
-          <!-- Highlight Informasi 3 Mode Panel -->
-          <div
-            style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 10px 12px; font-size: 11.5px; color: var(--text-muted); line-height: 1.5;">
-            <div style="margin-bottom: 4px;">• <strong>Panel Member Biasa:</strong> Akses Showcase, Kurikulum LMS, dan
-              Capstone POS.</div>
-            <div style="margin-bottom: 4px; color: #fbbf24;">• <strong>Panel Member PRO:</strong> Akses Ekstra (Vibe AI
-              &amp; AI Agents Terbuka jika akun sudah didaftarkan &amp; disetup Admin).
-            </div>
-            <div style="color: var(--accent-cyan);">• <strong>Panel Admin Saja:</strong> Master Control Center, Audit
-              Transaksi, &amp; Sheet CRUD.</div>
-          </div>
-
-          <button class="btn-vibe-send"
-            style="width: 100%; justify-content: center; padding: 11px; font-size: 13px; font-weight: 700; margin-top: 2px;"
-            onclick="loginWithCustomGoogleAccount()">
-            Masuk ke Panel Terpilih 🚀
-          </button>
         </div>
       </div>
 
-      <div
-        style="display: flex; justify-content: space-between; align-items: center; font-size: 11.5px; color: var(--text-subtle);">
-        <span>🛡️ Google Identity & Apps Script Auth</span>
-        <button onclick="logoutToGuest()"
-          style="background: transparent; border: none; color: #f43f5e; cursor: pointer; font-weight: 700;">
-          Keluar (Mode Tamu)
+      <!-- Hidden Select element for two-way state synchronization -->
+      <select id="customGoogleRole" style="display: none;" onchange="onLoginRoleSelectChange(this.value)">
+        <option value="MEMBER_REGULAR">MEMBER_REGULAR</option>
+        <option value="MEMBER_PRO">MEMBER_PRO</option>
+        <option value="ADMIN">ADMIN</option>
+      </select>
+
+      <!-- 2. Form Input Fields with Leading Icons -->
+      <div class="auth-fields-card">
+        <!-- Input Email Google -->
+        <div class="auth-field-group">
+          <label class="auth-field-label">Email Akun Google</label>
+          <div class="auth-input-wrapper">
+            <span class="auth-input-icon">✉️</span>
+            <input type="email" id="customGoogleEmail" class="auth-modern-input"
+              placeholder="nama.anda@gmail.com" autocomplete="email" required>
+          </div>
+        </div>
+
+        <!-- Input Nama Lengkap (Opsional) -->
+        <div class="auth-field-group">
+          <label class="auth-field-label">Nama Panggilan / Lengkap <span style="font-weight: 500; opacity: 0.6;">(Opsional)</span></label>
+          <div class="auth-input-wrapper">
+            <span class="auth-input-icon">👤</span>
+            <input type="text" id="customGoogleName" class="auth-modern-input"
+              placeholder="Contoh: Rian Pratama" autocomplete="name">
+          </div>
+        </div>
+
+        <!-- Info Lisensi Khusus Panel Member PRO (Muncul Saat Opsi MEMBER_PRO Dipilih) -->
+        <div id="proLoginHintGroup" class="auth-info-card auth-info-pro" style="display: none;">
+          <div style="font-size: 11px; font-weight: 700; color: #fbbf24; margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">
+            <span>⭐</span> <span>VALIDASI LISENSI MEMBER PRO:</span>
+          </div>
+          <div style="font-size: 11px; color: #e2e8f0; line-height: 1.45;">
+            Vibe AI Studio dan AI Agents akan otomatis terbuka jika email Google Anda telah disetujui &amp; didaftarkan oleh Admin di database Google Sheet.
+          </div>
+        </div>
+
+        <!-- Input PIN Khusus Panel Admin (Muncul Otomatis Saat Opsi ADMIN Dipilih) -->
+        <div id="adminLoginPinGroup" class="auth-info-card auth-info-admin" style="display: none;">
+          <div style="font-size: 11px; font-weight: 700; color: #fb7185; margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
+            <span>🔒</span> <span>PIN / PASSWORD MASTER SUPER ADMIN:</span>
+          </div>
+          <form onsubmit="event.preventDefault(); loginWithCustomGoogleAccount();" style="margin: 0; padding: 0;">
+            <input type="text" name="username" autocomplete="username" value="admin" style="display:none;" aria-hidden="true" tabindex="-1">
+            <div class="auth-input-wrapper">
+              <span class="auth-input-icon">🔑</span>
+              <input type="password" id="customAdminPassword" name="customAdminPassword" class="auth-modern-input"
+                placeholder="Masukkan PIN Master Admin" autocomplete="current-password"
+                style="padding-right: 40px; font-weight: 700; font-family: 'JetBrains Mono', monospace; letter-spacing: 1.5px;"
+                onkeydown="if(event.key==='Enter') loginWithCustomGoogleAccount()">
+              <button type="button" onclick="toggleAdminPassVisibility('customAdminPassword', this)"
+                style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: transparent; border: none; color: #94a3b8; cursor: pointer; font-size: 14px; padding: 4px;">
+                👁️
+              </button>
+            </div>
+          </form>
+          <div style="font-size: 10.5px; color: #fca5a5; margin-top: 6px;">
+            ⚠️ Panel Admin dilindungi autentikasi master untuk hak kendali penuh.
+          </div>
+        </div>
+
+        <!-- Tombol Masuk Utama -->
+        <button type="button" class="auth-action-btn" id="btnSubmitCustomAuth" onclick="loginWithCustomGoogleAccount()">
+          <span>🚀 Masuk ke Workspace Sekarang</span>
+        </button>
+      </div>
+
+      <!-- 3. Refined Footer -->
+      <div class="auth-modal-footer">
+        <div class="auth-security-badge">
+          <span>🛡️</span> <span>Google Identity &amp; GAS Auth</span>
+        </div>
+        <button type="button" class="auth-guest-btn" onclick="logoutToGuest()">
+          <span>🚪 Lanjut Mode Tamu</span>
         </button>
       </div>
     </div>
@@ -14461,6 +14698,7 @@
       toggleAnimOption: toggleAnimOption,
       toggleAdminPassVisibility: toggleAdminPassVisibility,
       onLoginRoleSelectChange: onLoginRoleSelectChange,
+      selectAuthRoleCard: selectAuthRoleCard,
       openAdminSecurityModal: openAdminSecurityModal,
       closeAdminSecurityModal: closeAdminSecurityModal,
       verifyAdminSecurityPin: verifyAdminSecurityPin
@@ -15674,9 +15912,36 @@
       }
     }
 
+    function selectAuthRoleCard(role) {
+      const select = document.getElementById('customGoogleRole');
+      if (select) select.value = role;
+      onLoginRoleSelectChange(role);
+    }
+
     function onLoginRoleSelectChange(role) {
       const group = document.getElementById('adminLoginPinGroup');
       const proHint = document.getElementById('proLoginHintGroup');
+      const cardReg = document.getElementById('authRoleCard_REGULAR');
+      const cardPro = document.getElementById('authRoleCard_PRO');
+      const cardAdmin = document.getElementById('authRoleCard_ADMIN');
+      const submitBtn = document.getElementById('btnSubmitCustomAuth');
+
+      // Sync active state on 3 segmented cards
+      if (cardReg) cardReg.classList.toggle('active', role === 'MEMBER_REGULAR');
+      if (cardPro) cardPro.classList.toggle('active', role === 'MEMBER_PRO');
+      if (cardAdmin) cardAdmin.classList.toggle('active', role === 'ADMIN');
+
+      // Update button text & icon according to selected role
+      if (submitBtn) {
+        if (role === 'ADMIN') {
+          submitBtn.innerHTML = '<span>🛡️ Masuk ke Panel Super Admin</span>';
+        } else if (role === 'MEMBER_PRO') {
+          submitBtn.innerHTML = '<span>⭐ Masuk ke Panel Member PRO</span>';
+        } else {
+          submitBtn.innerHTML = '<span>🚀 Masuk ke Workspace Sekarang</span>';
+        }
+      }
+
       if (group) {
         group.style.display = (role === 'ADMIN') ? 'block' : 'none';
         if (role === 'ADMIN') {
@@ -15788,13 +16053,10 @@
       }
 
       // Sync customGoogleRole with active role if open
-      const customRoleSelect = document.getElementById('customGoogleRole');
-      if (customRoleSelect) {
-        if (appState.currentRole === 'MEMBER_PRO') customRoleSelect.value = 'MEMBER_PRO';
-        else if (appState.currentRole === 'ADMIN') customRoleSelect.value = 'ADMIN';
-        else customRoleSelect.value = 'MEMBER_REGULAR';
-        onLoginRoleSelectChange(customRoleSelect.value);
-      }
+      let targetRole = 'MEMBER_REGULAR';
+      if (appState.currentRole === 'MEMBER_PRO') targetRole = 'MEMBER_PRO';
+      else if (appState.currentRole === 'ADMIN') targetRole = 'ADMIN';
+      selectAuthRoleCard(targetRole);
     }
 
     function closeGoogleLoginModal() {
@@ -18523,6 +18785,7 @@
     window.debouncePreview = debouncePreview;
     window.onRoleChange = onRoleChange;
     window.applyRole = applyRole;
+    window.selectAuthRoleCard = selectAuthRoleCard;
     window.openGoogleLoginModal = openGoogleLoginModal;
     window.closeGoogleLoginModal = closeGoogleLoginModal;
     window.toggleCustomLoginForm = toggleCustomLoginForm;
