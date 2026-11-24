@@ -4,10 +4,11 @@
  * Strategy: Cache-First App Shell + Stale-While-Revalidate for Static Assets
  */
 
-const CACHE_NAME = 'codeverse-shell-v1.0.0';
+const CACHE_NAME = 'codeverse-shell-v1.0.1';
 const STATIC_ASSETS = [
   './',
-  './Index.html',
+  './index.html',
+  './404.html',
   './manifest.json',
   './icons/icon-192.svg',
   './icons/icon-512.svg'
@@ -71,7 +72,7 @@ self.addEventListener('fetch', (event) => {
           return networkRes;
         })
         .catch(() => {
-          return caches.match('./Index.html') || caches.match('./');
+          return caches.match('./index.html') || caches.match('./');
         })
     );
     return;
