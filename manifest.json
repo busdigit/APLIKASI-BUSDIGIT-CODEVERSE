@@ -1,0 +1,53 @@
+{
+  "id": "/?source=pwa",
+  "name": "BUSDIGIT CODEVERSE — Private Coding Academy & Vibe Coding",
+  "short_name": "CODEVERSE",
+  "description": "Platform akademi coding privat, LMS kurikulum industri, dan Vibe Coding AI Studio siap pakai.",
+  "start_url": "./Index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#060b14",
+  "theme_color": "#060b14",
+  "orientation": "any",
+  "lang": "id",
+  "dir": "ltr",
+  "icons": [
+    {
+      "src": "icons/icon-192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "LMS Kelas & Kurikulum",
+      "short_name": "Kelas LMS",
+      "url": "./Index.html#lms",
+      "description": "Buka modul pembelajaran dan kurikulum privat"
+    },
+    {
+      "name": "Vibe Coding AI Studio",
+      "short_name": "Vibe AI",
+      "url": "./Index.html#vibecoding",
+      "description": "Buka AI Studio Vibe Coding siap pakai"
+    },
+    {
+      "name": "Library Docs & Code",
+      "short_name": "Library",
+      "url": "./Index.html#library",
+      "description": "Buka dokumentasi materi dan project download"
+    }
+  ],
+  "categories": [
+    "education",
+    "developer",
+    "productivity"
+  ]
+}

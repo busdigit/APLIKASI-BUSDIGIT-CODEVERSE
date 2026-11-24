@@ -8,6 +8,16 @@
     content="Platform pembelajaran coding privat BUSDIGIT dengan mentoring, project lab, dan Vibe Coding.">
   <title>BUSDIGIT CODEVERSE — Private Coding Academy & Vibe Coding Platform</title>
 
+  <!-- PWA Web App Manifest & Mobile App Meta Tags -->
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#060b14">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CODEVERSE">
+  <link rel="apple-touch-icon" href="./icons/icon-192.svg">
+  <link rel="icon" type="image/svg+xml" href="./icons/icon-192.svg">
+
   <!-- Immediate Mobile & Touch Detection for Google Apps Script Web App -->
   <script>
     (function () {
@@ -48,6 +58,7 @@
         'loginWithGoogle', 'loginWithDetectedGoogleAccount', 'logoutToGuest',
         'submitMentorGrade', 'syncAdminStats', 'toggleCustomLoginForm', 'loginWithCustomGoogleAccount',
         'openIdeaPollingModal', 'openSavedProjectsModal', 'openLeaderboardModal', 'openCreatorProfileModal', 'openSupportCSModal',
+        'installPwaApp', 'showPwaInstallGuideModal',
         'openAIAgentModal', 'closeAIAgentModal', 'saveAIAgentsToSheet', 'saveAIAgentItem',
         'editAIAgentItem', 'deleteAIAgentItem', 'moveAIAgentItem', 'resetAIAgentsToDefault',
         'cancelEditAIAgent', 'previewAgentImage', 'copyAgentLink', 'scrollToAIAgents',
@@ -9936,6 +9947,14 @@
 
           <!-- Right Header Actions -->
           <div class="header-actions">
+            <!-- Tombol Pasang Aplikasi PWA -->
+            <button class="btn-pwa-install" id="btnPwaInstall" onclick="installPwaApp()"
+              title="Pasang aplikasi BUSDIGIT CODEVERSE di perangkat Anda"
+              style="display: inline-flex; align-items: center; gap: 6px; padding: 7px 12px; border-radius: 999px; background: rgba(0, 255, 163, 0.1); border: 1px solid rgba(0, 255, 163, 0.35); color: #00FFA3; font-size: 11.5px; font-weight: 700; cursor: pointer; transition: all 0.2s ease;">
+              <span>📲</span>
+              <span>Pasang App</span>
+            </button>
+
             <!-- Tombol Masuk dengan Akun Google -->
             <button class="btn-google-login" id="btnGoogleAuthHeader" onclick="openGoogleLoginModal()"
               title="Masuk / Ganti Akun Google">
@@ -21614,6 +21633,103 @@ capstoneGaleriFns.forEach(function (fnName) {
     }
   } catch (e) {}
 });
+
+// =========================================================================
+// PROGRESSIVE WEB APP (PWA) SERVICE WORKER & INSTALLATION ENGINE
+// =========================================================================
+var deferredPwaPrompt = null;
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('./sw.js')
+      .then(function (reg) {
+        console.log('✅ PWA Service Worker terdaftar dengan scope:', reg.scope);
+      })
+      .catch(function (err) {
+        console.log('ℹ️ PWA Service Worker info:', err && err.message ? err.message : err);
+      });
+  });
+}
+
+window.addEventListener('beforeinstallprompt', function (e) {
+  e.preventDefault();
+  deferredPwaPrompt = e;
+  var btn = document.getElementById('btnPwaInstall');
+  if (btn) {
+    btn.style.display = 'inline-flex';
+  }
+});
+
+window.addEventListener('appinstalled', function () {
+  deferredPwaPrompt = null;
+  if (typeof showToast === 'function') {
+    showToast('🎉 Aplikasi BUSDIGIT CODEVERSE berhasil terpasang di perangkat Anda!');
+  }
+  var btn = document.getElementById('btnPwaInstall');
+  if (btn) btn.style.display = 'none';
+});
+
+function installPwaApp() {
+  if (deferredPwaPrompt) {
+    deferredPwaPrompt.prompt();
+    deferredPwaPrompt.userChoice.then(function (choiceResult) {
+      if (choiceResult && choiceResult.outcome === 'accepted') {
+        if (typeof showToast === 'function') {
+          showToast('🎉 Terima kasih telah memasang BUSDIGIT CODEVERSE!');
+        }
+        var btn = document.getElementById('btnPwaInstall');
+        if (btn) btn.style.display = 'none';
+      }
+      deferredPwaPrompt = null;
+    });
+  } else {
+    showPwaInstallGuideModal();
+  }
+}
+
+function showPwaInstallGuideModal() {
+  var modal = document.getElementById('modalPwaInstallGuide');
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.id = 'modalPwaInstallGuide';
+    modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(8px);z-index:999999;display:flex;align-items:center;justify-content:center;padding:20px;';
+    modal.innerHTML = `
+      <div style="background:#0b1329;border:1px solid rgba(0,255,163,0.4);border-radius:18px;max-width:500px;width:100%;padding:24px;color:#f8fafc;box-shadow:0 25px 60px rgba(0,0,0,0.8);position:relative;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span style="font-size:26px;">📲</span>
+            <h3 style="margin:0;font-size:18px;color:#00FFA3;font-weight:700;font-family:'Outfit',sans-serif;">Pasang BUSDIGIT CODEVERSE (PWA)</h3>
+          </div>
+          <button onclick="document.getElementById('modalPwaInstallGuide').style.display='none'" style="background:transparent;border:none;color:#94a3b8;font-size:22px;cursor:pointer;padding:4px 8px;">✕</button>
+        </div>
+        <p style="font-size:13px;color:#cbd5e1;line-height:1.6;margin-bottom:16px;">
+          Aplikasi ini dapat dipasang langsung di layar utama smartphone atau desktop Anda layaknya aplikasi native tanpa lewat Play Store / App Store:
+        </p>
+        <div style="background:rgba(15,23,42,0.9);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:14px;margin-bottom:14px;font-size:12.5px;line-height:1.7;">
+          <div style="font-weight:700;color:#38bdf8;margin-bottom:4px;">🤖 Di Android / Google Chrome / Edge:</div>
+          <div>Klik ikon <strong>titik tiga (⋮)</strong> di kanan atas browser &rarr; pilih <strong>"Tambahkan ke Layar Utama" (Install app)</strong>.</div>
+        </div>
+        <div style="background:rgba(15,23,42,0.9);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:14px;margin-bottom:18px;font-size:12.5px;line-height:1.7;">
+          <div style="font-weight:700;color:#f472b6;margin-bottom:4px;">🍎 Di iPhone / iPad (Safari):</div>
+          <div>Klik tombol <strong>Bagikan / Share (ikon kotak panah ke atas)</strong> &rarr; gulir ke bawah dan pilih <strong>"Add to Home Screen" (Tambahkan ke Layar Utama)</strong>.</div>
+        </div>
+        <div style="display:flex;justify-content:flex-end;">
+          <button type="button" onclick="document.getElementById('modalPwaInstallGuide').style.display='none'" style="background:#00FFA3;border:none;color:#051410;font-weight:700;padding:8px 18px;border-radius:8px;font-size:13px;cursor:pointer;">Mengerti</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+  } else {
+    modal.style.display = 'flex';
+  }
+}
+
+window.installPwaApp = installPwaApp;
+window.showPwaInstallGuideModal = showPwaInstallGuideModal;
+if (window._handlers) {
+  window._handlers.installPwaApp = installPwaApp;
+  window._handlers.showPwaInstallGuideModal = showPwaInstallGuideModal;
+}
 
 </script>
 </body>
