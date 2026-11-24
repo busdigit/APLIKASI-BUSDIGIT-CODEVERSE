@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Temporary & Scratch Files
+scratch/
+.gemini/
+*.log
+*.tmp
+
+# Backup Files
+*.bak
+*.pre_lms.bak
+
+# Editor & OS settings
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Credentials & Clasp Secret Files
+.clasprc.json
